@@ -416,6 +416,10 @@ Video.propTypes = {
       language: PropTypes.string.isRequired
     })
   ),
+  textTrackStyles: PropTypes.shape({
+    fontFamily: PropTypes.string.isRequired,
+    fontSize: PropTypes.number.isRequired,
+  }),
   paused: PropTypes.bool,
   muted: PropTypes.bool,
   volume: PropTypes.number,

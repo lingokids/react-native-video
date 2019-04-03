@@ -5,12 +5,16 @@ import android.content.Context;
 import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -21,6 +25,7 @@ import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.TextRenderer;
+import com.google.android.exoplayer2.text.CaptionStyleCompat;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SubtitleView;
 
@@ -149,6 +154,25 @@ public final class ExoPlayerView extends FrameLayout {
             post(measureAndLayout);
         }
 
+    }
+
+    /**
+     * Sets the custom subtitle styles
+     *
+     * @params fontFamily and fontSize.
+     */
+    public void setTextTrackStyles(String fontFamily, int fontSize) {
+        if (fontFamily != null & fontSize != 0) {
+            Typeface subtitleTypeface = Typeface.createFromAsset(context.getAssets(), fontFamily);
+            DisplayMetrics metrics = getResources().getDisplayMetrics(); 
+
+            CaptionStyleCompat style = new CaptionStyleCompat(Color.WHITE,
+                    Color.TRANSPARENT, Color.argb(160, 0, 0, 0),
+                    Color.TRANSPARENT,
+                    Color.TRANSPARENT, subtitleTypeface);
+            subtitleLayout.setStyle(style);
+            subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * (metrics.scaledDensity / 2));
+        }
     }
 
     /**

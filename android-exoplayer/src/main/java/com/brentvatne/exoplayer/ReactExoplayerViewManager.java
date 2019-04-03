@@ -57,6 +57,9 @@ public class ReactExoplayerViewManager extends ViewGroupManager<ReactExoplayerVi
     private static final String PROP_SELECTED_VIDEO_TRACK = "selectedVideoTrack";
     private static final String PROP_SELECTED_VIDEO_TRACK_TYPE = "type";
     private static final String PROP_SELECTED_VIDEO_TRACK_VALUE = "value";
+    private static final String PROP_TEXT_TRACK_STYLES = "textTrackStyles";
+    private static final String PROP_TEXT_TRACK_STYLES_FONT_FAMILY = "fontFamily";
+    private static final String PROP_TEXT_TRACK_STYLES_FONT_SIZE = "fontSize";
     private static final String PROP_HIDE_SHUTTER_VIEW = "hideShutterView";
     private static final String PROP_CONTROLS = "controls";
 
@@ -190,6 +193,18 @@ public class ReactExoplayerViewManager extends ViewGroupManager<ReactExoplayerVi
     public void setPropTextTracks(final ReactExoplayerView videoView,
                                   @Nullable ReadableArray textTracks) {
         videoView.setTextTracks(textTracks);
+    }
+
+    @ReactProp(name = PROP_TEXT_TRACK_STYLES)
+    public void setTextTrackStyles(final ReactExoplayerView videoView,
+                                     @Nullable ReadableMap textTrackStyles) {
+        if (textTrackStyles != null) {
+            String fontFamily = textTrackStyles.hasKey(PROP_TEXT_TRACK_STYLES_FONT_FAMILY)
+                    ? textTrackStyles.getString(PROP_TEXT_TRACK_STYLES_FONT_FAMILY) : null;
+            int fontSize = textTrackStyles.hasKey(PROP_TEXT_TRACK_STYLES_FONT_SIZE)
+                    ? textTrackStyles.getInt(PROP_TEXT_TRACK_STYLES_FONT_SIZE) : null;
+            videoView.setSelectedTextStyles(fontFamily, fontSize);
+        }
     }
 
     @ReactProp(name = PROP_PAUSED, defaultBoolean = false)
