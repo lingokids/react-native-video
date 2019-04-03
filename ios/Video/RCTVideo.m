@@ -5,6 +5,7 @@
 #import <React/UIView+React.h>
 #include <MediaAccessibility/MediaAccessibility.h>
 #include <AVFoundation/AVFoundation.h>
+#include <CoreMedia/CoreMedia.h>
 
 static NSString *const statusKeyPath = @"status";
 static NSString *const playbackLikelyToKeepUpKeyPath = @"playbackLikelyToKeepUp";
@@ -61,6 +62,7 @@ static int const RCTVideoUnset = -1;
   BOOL _repeat;
   BOOL _allowsExternalPlayback;
   NSArray * _textTracks;
+  NSDictionary * _textTrackStyles;
   NSDictionary * _selectedTextTrack;
   NSDictionary * _selectedAudioTrack;
   BOOL _playbackStalled;
@@ -1082,6 +1084,16 @@ static int const RCTVideoUnset = -1;
     }
     [_player.currentItem.tracks[i] setEnabled:isEnabled];
   }
+
+  if ([_textTrackStyles count]> 0) {
+    AVTextStyleRule *textStyle = [[AVTextStyleRule alloc]initWithTextMarkupAttributes:@{
+                                (id)kCMTextMarkupAttribute_ForegroundColorARGB : @[ @1, @1, @1, @1 ],
+                                (id)kCMTextMarkupAttribute_BackgroundColorARGB : @[ @0, @0, @0, @0],
+                                (id)kCMTextFormatDescriptionStyle_FontSize : _textTrackStyles[@"fontSize"],
+                                (id)kCMTextMarkupAttribute_FontFamilyName : _textTrackStyles[@"fontFamily"]
+                                }];
+    _player.currentItem.textStyleRules = @[textStyle];
+  }
 }
 
 -(void) setStreamingText {
@@ -1133,6 +1145,11 @@ static int const RCTVideoUnset = -1;
   
   // in case textTracks was set after selectedTextTrack
   if (_selectedTextTrack) [self setSelectedTextTrack:_selectedTextTrack];
+}
+
+- (void)setTextTrackStyles:(NSDictionary*) textTrackStyles;
+{
+    _textTrackStyles = textTrackStyles;
 }
 
 - (NSArray *)getAudioTrackInfo
