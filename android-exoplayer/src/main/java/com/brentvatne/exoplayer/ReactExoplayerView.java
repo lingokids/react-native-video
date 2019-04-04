@@ -138,6 +138,8 @@ class ReactExoplayerView extends FrameLayout implements
     private ReadableArray audioTracks;
     private String textTrackType;
     private Dynamic textTrackValue;
+    private String textTrackFontFamily;
+    private int textTrackFontSize;
     private ReadableArray textTracks;
     private boolean disableFocus;
     private float mProgressUpdateInterval = 250.0f;
@@ -627,6 +629,8 @@ class ReactExoplayerView extends FrameLayout implements
             setSelectedAudioTrack(audioTrackType, audioTrackValue);
             setSelectedVideoTrack(videoTrackType, videoTrackValue);
             setSelectedTextTrack(textTrackType, textTrackValue);
+            setSelectedTextStyles(textTrackFontFamily, textTrackFontSize);
+
             Format videoFormat = player.getVideoFormat();
             int width = videoFormat != null ? videoFormat.width : 0;
             int height = videoFormat != null ? videoFormat.height : 0;
@@ -1033,6 +1037,12 @@ class ReactExoplayerView extends FrameLayout implements
         textTrackType = type;
         textTrackValue = value;
         setSelectedTrack(C.TRACK_TYPE_TEXT, textTrackType, textTrackValue);
+    }
+
+    public void setSelectedTextStyles(String fontFamily, int fontSize) {
+        textTrackFontFamily = fontFamily;
+        textTrackFontSize = fontSize;
+        exoPlayerView.setTextTrackStyles(textTrackFontFamily, textTrackFontSize);
     }
 
     public void setPausedModifier(boolean paused) {

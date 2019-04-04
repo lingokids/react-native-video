@@ -288,6 +288,7 @@ var styles = StyleSheet.create({
 * [source](#source)
 * [stereoPan](#stereopan)
 * [textTracks](#texttracks)
+* [textTrackStyles](#texttrackstyles)
 * [useTextureView](#usetextureview)
 * [volume](#volume)
 
@@ -778,6 +779,31 @@ textTracks={[
     uri: "https://durian.blender.org/wp-content/content/subtitles/sintel_es.srt"
   }
 ]}
+```
+
+
+Platforms: Android ExoPlayer, iOS
+
+#### textTrackStyles
+Change the font and font size of the text tracks:
+
+Property | Description
+--- | ---
+fontFamily | Name of the font for iOS, path of the font for Android
+fontSize | Size of the font
+
+Note: If you use this prop you have to set both **fontFamily** and **fontSize**.
+
+Example:
+```
+import { Platform } from 'react-native';
+
+textTrackStyles={
+  {
+    fontFamily: Platform.OS === "ios" ? "Lato-Bold" : "fonts/Lato-Bold.otf",
+    fontSize: 30,
+  }
+}
 ```
 
 
