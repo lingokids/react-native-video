@@ -1111,7 +1111,7 @@ static int const RCTVideoUnset = -1;
     [_player.currentItem.tracks[i] setEnabled:isEnabled];
   }
 
-  if ([_textTrackStyles count]> 0) {
+  if ([_textTrackStyles count] > 0) {
     AVTextStyleRule *textStyle = [[AVTextStyleRule alloc]initWithTextMarkupAttributes:@{
                                 (id)kCMTextMarkupAttribute_ForegroundColorARGB : @[ @1, @1, @1, @1 ],
                                 (id)kCMTextMarkupAttribute_BackgroundColorARGB : @[ @0, @0, @0, @0],
