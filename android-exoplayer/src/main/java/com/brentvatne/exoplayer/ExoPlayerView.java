@@ -171,7 +171,7 @@ public final class ExoPlayerView extends FrameLayout {
                     Color.TRANSPARENT,
                     Color.TRANSPARENT, subtitleTypeface);
             subtitleLayout.setStyle(style);
-            subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * (metrics.scaledDensity / 2));
+            subtitleLayout.setFixedTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize * metrics.scaledDensity);
         }
     }
 
