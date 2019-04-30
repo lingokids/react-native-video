@@ -458,7 +458,7 @@ static int const RCTVideoUnset = -1;
     AVMutableCompositionTrack *textCompTrack = [mixComposition
                                                 addMutableTrackWithMediaType:AVMediaTypeText
                                                 preferredTrackID:kCMPersistentTrackID_Invalid];
-    [textCompTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoAsset.timeRange.duration)
+    [textCompTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, textTrackAsset.timeRange.duration)
                            ofTrack:textTrackAsset
                             atTime:kCMTimeZero
                              error:nil];
